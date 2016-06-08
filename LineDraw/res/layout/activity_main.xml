@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+	<Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="23dp"
+            android:text="Button" />
+	
+    <com.example.linedraw.CustomLineDraw 
+        xmlns:customline="http://schemas.android.com/apk/res/com.example.linedraw"
+        android:id="@+id/customDraw"
+        android:layout_width="300dp"
+		android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#AABBCC"
+        customline:linethickness="1dp"
+        />
+</RelativeLayout>
