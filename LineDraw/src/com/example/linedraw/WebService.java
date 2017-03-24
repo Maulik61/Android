@@ -155,5 +155,146 @@ public class Save_Request {
     }
 
 }
+public class Save_Response {
+    @SerializedName("SaveResult")
+    private String SaveResult;
+
+    public String getSaveResult() {
+        return SaveResult;
+    }
+
+    public void setResult(String saveResult) {
+        SaveResult = saveResult;
+    }
+}
+    
+//POst Begin Call
+     testCmt tv = new testCmt("","",0,0,"test","");
+        Webservice.getTest_model().getcmt(tv, new Callback<TestCmt_Response>() {
+            @Override
+            public void success(TestCmt_Response testCmt_Response, Response response) {
+                Log.e("Test", "success: ");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("Test", "Error: ");
+            }
+        });
+//Post end call
+public interface Test_Model {
+
+    @POST("/SaveCmt.json")
+    public void getcmt(@Body testCmt cmt,Callback<TestCmt_Response> response);
+
+    @POST("/GetCmr.json")
+    public void getData(@Body BranchRequest rnt, Callback<GetBranchReponse> response);
+}
+public class testCmt{
+    private List<Comment> comment = new ArrayList<Comment>();
+
+
+    public testCmt(double decItemRating, String dteItemFeedBack, int intCustomerID, int intItemID, String strItemFeedback, String strItemImagePath){
+        this.comment.add(new Comment(decItemRating,dteItemFeedBack,intCustomerID,intItemID,strItemFeedback,strItemImagePath));
+    }
+    public class Comment{
+
+        private Double decItemRating;
+        private String dteItemFeedBack;
+        private int intCustomerID;
+        private int intItemID;
+        private String strItemFeedback;
+        private String strItemImagePath;
+
+        public Comment(Double decItemRating, String dteItemFeedBack, int intCustomerID, int intItemID, String strItemFeedback, String strItemImagePath) {
+            this.decItemRating = decItemRating;
+            this.dteItemFeedBack = dteItemFeedBack;
+            this.intCustomerID = intCustomerID;
+            this.intItemID = intItemID;
+            this.strItemFeedback = strItemFeedback;
+            this.strItemImagePath = strItemImagePath;
+        }
+    }
+}
+public class TestCmt_Response {
+    @SerializedName("SaveResult")
+    private String SaveResult;
+
+    public String getSaveResultt() {
+        return SaveResult;
+    }
+
+    public void setSaveResult(String SaveResult) {
+        SaveResult = SaveResult;
+    }
+}
+
+
+    
+//begin post call
+        BranchRequest b = new BranchRequest("","0","0","","");
+        Webservice.getTest_model().getData(b, new Callback<GetReponse>() {
+                    @Override
+                    public void success(GetReponse getReponse, Response response) {
+                        Log.e("Test", "success: ");
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.e("Test", "failure: ");
+                    }
+                });
+//End post call
+public class BranchRequest {
+
+    private DataObject DataObject;
+
+    public DataObjectRequest (String strCustomerlatLong, String intCityId, String intID, String strSearchString, String strTag){
+
+        this.DataObject = new DataObject(strCustomerlatLong,intCityId,intID,strSearchString,strTag);
+
+    }
+
+    public classDataObject{
+        private String strCustomerlatLong;
+        private String intCityId;
+        private String intID;
+        private String strSearchString;
+        private String strTag;
+
+        public BranchSearchDataObject(String strCustomerlatLong, String intCityId, String intID, String strSearchString, String strTag) {
+            this.strCustomerlatLong = strCustomerlatLong;
+            this.intCityId = intCityId;
+            this.intID = intID;
+            this.strSearchString = strSearchString;
+            this.strTag = strTag;
+        }
+    }
+
+}
+public class GetResultReponse {
+
+    @SerializedName("Result")
+    private List<GetResult> GetResult = new ArrayList<GetResult>();
+    public List<GetResult> GetResultData() {
+        return GetResult;
+    }
+
+    public void setResultData(List<GetResult> Result) {
+        this.GetResult = Result;
+    }
+    public class GetResult{
+            public String BillLineData;
+            public String bitIsApprove;
+            public String bitIsConsumerOn;
+            
+        public GetResult(String billLineData, String bitIsApprove, String bitIsConsumerOn){
+            this.BillLineData = billLineData;
+            this.bitIsApprove = bitIsApprove;
+            this.bitIsConsumerOn = bitIsConsumerOn;
+          
+        }
+    }
+}
 
 
