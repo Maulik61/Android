@@ -1,4 +1,15 @@
 public class Utils {
+	
+	Context context;
+	private Dialog progressDialog = null;
+	private ProgressBar progressBar;
+
+	public Utils(Context context) {
+
+		this.context = context;
+	}
+
+	
       public void showPopupProgressSpinner(Boolean isShowing) {
 		if (isShowing == true) {
 			progressDialog = new Dialog(context);
