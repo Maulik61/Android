@@ -1,1 +1,2 @@
 https://github.com/johnjohndoe/AndroidStudioNavigationDrawer
+http://www.devexchanges.info/2016/03/modal-bottom-sheet-with-material-design.html
