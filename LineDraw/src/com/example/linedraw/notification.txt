@@ -1,0 +1,52 @@
+ notification_id = (int) System.currentTimeMillis();
+//
+//        Intent button_intent = new Intent("button_click");
+//        button_intent.putExtra("id",notification_id);
+//        PendingIntent button_pending_event = PendingIntent.getBroadcast(this,notification_id, button_intent,0);
+//
+//        remoteViews.setOnClickPendingIntent(R.id.notification_layout,button_pending_event);
+//
+//        Intent notification_intent = new Intent(this,OngoingActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,notification_intent,PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        builder.setSmallIcon(R.drawable.usernumber_logo)
+//                .setAutoCancel(true)
+//                .setCustomBigContentView(remoteViews)
+//                .setContentIntent(pendingIntent);
+//
+//        notificationManager.notify(notification_id,builder.build());
+
+        Intent intent = new Intent(getApplicationContext(), OngoingActivity.class);
+        intent.putExtra("id",notification_id);
+        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), intent, 0);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Notification myNotification  = null;
+            myNotification = new Notification.Builder(getApplicationContext())
+                    .setCustomBigContentView(remoteViews)
+                    .setSmallIcon(R.drawable.usernumber_logo)
+                    .setContentIntent(pIntent)
+                    .setAutoCancel(true).build();
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.notify(notification_id, myNotification);
+        }else{
+            NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+            builder = new NotificationCompat.Builder(this);
+            builder.setSmallIcon(R.drawable.usernumber_logo)
+                .setAutoCancel(true)
+                .setCustomBigContentView(remoteViews)
+                .setContentIntent(pIntent);
+            notificationManager.notify(notification_id,builder.build());
+        }
+        
+        public class NotificationListner extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(intent.getExtras().getInt("id"));
+        Toast.makeText(context, "Layout clicked!", Toast.LENGTH_SHORT).show();
+    }
+}
+
+        
